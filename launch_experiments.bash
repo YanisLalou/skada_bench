@@ -1,0 +1,1 @@
+# This bash script is used to install the dependencies and launch the experiments.
