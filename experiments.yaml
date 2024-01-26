@@ -12,6 +12,20 @@ experiments:
       - sklearn.linear_model.LogisticRegression
     scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
 
+  # - dataset: datasets.nhanes_lead_dataset.NhanesLeadDataset
+  #   estimators:
+  #     - sklearn.decomposition.PCA
+  #     - sklearn.linear_model.LogisticRegression
+  #   scorer: scorers.supervised_scorer.SupervisedScorer
+
+  # - dataset: datasets.nhanes_lead_dataset.NhanesLeadDataset
+  #   estimators:
+  #     - sklearn.decomposition.PCA
+  #     - estimators.subspace_alignment_adapter_estimator.SubspaceAlignmentAdapterEstimator
+  #     - sklearn.linear_model.LogisticRegression
+  #   scorer: scorers.supervised_scorer.SupervisedScorer
+
+
 # Add more experiments here
 # Potential issues: 
 #   - We need to make sure that the dataset is compatible with the

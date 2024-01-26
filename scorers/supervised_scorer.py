@@ -1,6 +1,6 @@
-from skada.metrics import PredictionEntropyScorer
+from skada.metrics import SupervisedScorer
 
-class PredictionEntropyScorer(PredictionEntropyScorer):
+class SupervisedScorer(SupervisedScorer):
     def __init__(self, greater_is_better=False):
         super().__init__(greater_is_better=greater_is_better)
         
@@ -8,4 +8,4 @@ class PredictionEntropyScorer(PredictionEntropyScorer):
         return super()._score(estimator, X, y, sample_domain=sample_domain, **params)
 
     def __str__(self):
-        return 'PredictionEntropyScorer'
+        return 'SupervisedScorer'

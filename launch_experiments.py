@@ -16,6 +16,8 @@ from skada.datasets import DomainAwareDataset
 from skada.metrics import _BaseDomainAwareScorer
 from skada import make_da_pipeline
 
+from utils import seed_everything
+
 parser = argparse.ArgumentParser()
 
 
@@ -58,7 +60,6 @@ def launch_experiments(args):
         dataset = dataset_class()
 
         # Load the estimators
-        estimator = estimator_class()
         estimator_to_run = [estimator_class() for estimator_class in estimator_classes_to_run]
 
         # Create the pipeline
@@ -82,15 +83,16 @@ def launch_experiments(args):
             scoring=scorer,
         )
 
+        pipe_name = '|'.join(list(pipe.named_steps.keys()))
         # Save the results
         results = {
             'dataset': str(dataset),
-            'estimator': str(estimator),
+            'estimator': pipe_name,
             'scorer': str(scorer),
             'scores': scores,
         }
 
-        results_folder = os.path.join('results', str(dataset), str(estimator))
+        results_folder = os.path.join('results', str(dataset), pipe_name)
         os.makedirs(results_folder, exist_ok=True)
 
         results_filename = os.path.join(results_folder, str(scorer) + '.pkl')
@@ -193,4 +195,7 @@ def load_experiment_config(config_file):
 
 if __name__ == "__main__":
     args = parser.parse_args()
+
+    seed_everything()
+
     launch_experiments(args)

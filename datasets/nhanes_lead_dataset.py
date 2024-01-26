@@ -67,3 +67,6 @@ class NhanesLeadDataset(DomainAwareDataset):
     
     def pack_lodo(self, return_X_y: bool = True) -> PackedDatasetType:
         return super().pack_lodo(return_X_y)
+    
+    def __str__(self):
+        return 'NhanesLeadDataset'
