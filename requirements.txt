@@ -2,4 +2,5 @@ numpy>=1.24
 scipy>=1.10
 scikit-learn>=1.4.0
 pot>=0.9.0
-skada
+pyyaml>=5.3
+#skada
