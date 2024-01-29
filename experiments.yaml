@@ -12,6 +12,13 @@ experiments:
       - sklearn.linear_model.LogisticRegression
     scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
 
+  - dataset: datasets.office31_dataset.Office31Dataset
+    estimators:
+      - sklearn.decomposition.PCA
+      - estimators.subspace_alignment_adapter_estimator.SubspaceAlignmentAdapterEstimator
+      - sklearn.linear_model.LogisticRegression
+    scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
   # - dataset: datasets.nhanes_lead_dataset.NhanesLeadDataset
   #   estimators:
   #     - sklearn.decomposition.PCA

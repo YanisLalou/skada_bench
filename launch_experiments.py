@@ -93,6 +93,9 @@ def launch_experiments(args):
         }
 
         results_folder = os.path.join('results', str(dataset), pipe_name)
+        print('Saving results to: ')
+        print(results_folder)
+        print("\n\n\n")
         os.makedirs(results_folder, exist_ok=True)
 
         results_filename = os.path.join(results_folder, str(scorer) + '.pkl')

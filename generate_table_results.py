@@ -17,7 +17,7 @@ def load_results(results_filename):
 
 # Function to create a LaTeX table from the loaded results
 def create_latex_table(args, results_list):
-    headers = ['Dataset', 'Estimator', 'Scorer', 'Mean Score', 'Std Dev Score']
+    headers = ['Dataset', 'Estimator', 'Scorer', 'Mean Score', 'Std Score']
 
     data = []
     for results in results_list:
@@ -29,9 +29,9 @@ def create_latex_table(args, results_list):
 
         # Calculate mean and standard deviation of scores
         mean_score = round(scores.mean(), 3)
-        std_dev_score = round(scores.std(), 3)
+        std_score = round(scores.std(), 3)
 
-        data.append([dataset_name, estimator_name, scorer_name, mean_score, std_dev_score])
+        data.append([dataset_name, estimator_name, scorer_name, mean_score, std_score])
 
     # Generate LaTeX table
     if args.display:
