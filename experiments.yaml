@@ -24,11 +24,57 @@ experiments:
 
     estimators:
       - name: sklearn.decomposition.PCA
+        params:
+            n_components: 2
       - name: sklearn.linear_model.LogisticRegression
 
     scorer: 
       name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
 
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
+      - name: estimators.reweight_density_adapter_estimator.ReweightDensityAdapterEstimator
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
+      - name: estimators.gaussian_reweight_density_adapter_estimator.GaussianReweightDensityAdapterEstimator
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
+      - name: estimators.subspace_alignment_adapter_estimator.SubspaceAlignmentAdapter
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
 
 #   - dataset: datasets.nhanes_lead_dataset.NhanesLeadDataset
 #     estimators:

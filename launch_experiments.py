@@ -102,7 +102,7 @@ def launch_experiments(args):
             scoring=scorer,
         )
 
-        pipe_name = '|'.join(list(pipe.named_steps.keys()))
+        pipe_name = '-'.join(list(pipe.named_steps.keys()))
         # Save the results
         results = {
             'dataset': {
