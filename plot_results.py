@@ -2,6 +2,7 @@
 import os
 import pickle
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Function to load results from pickle file
 def load_results(results_filename):
@@ -9,26 +10,41 @@ def load_results(results_filename):
         results = pickle.load(f)
     return results
 
+
 # Function to create scatter plots from the loaded results
 def create_scatter_plots(results_list):
     plt.figure(figsize=(12, 8))
 
-    for results in results_list:
+    experiment_names = []  # Store experiment names for x-axis
+
+    for i, results in enumerate(results_list):
         # Extract relevant information from results
-        dataset_name = results['dataset']
-        estimator_name = results['estimator']
-        scorer_name = results['scorer']
-        scores = results['scores']
+        dataset_name = results['dataset']['name']
+        estimator_name = results['estimator']['name']
+        scorer_name = results['scorer']['name']
+        experiment_name = f'{dataset_name} - {estimator_name} - {scorer_name}'
 
-        # Scatter plot
-        plt.scatter(range(len(scores['test_score'])), scores['test_score'], label=f'{dataset_name} - {estimator_name} - {scorer_name}')
+        scores = results['scores']['test_score']
 
-    plt.xlabel('Fold')
+        # Calculate mean and std of test scores
+        mean_score = np.mean(scores)
+        std_score = np.std(scores)
+
+        # Plot mean score
+        plt.scatter(i, mean_score, marker='o')
+
+        # Plot error bar for standard deviation
+        plt.errorbar(i, mean_score, yerr=std_score, capsize=5)
+
+        experiment_names.append(experiment_name)
+
+    plt.xlabel('Experiment')
     plt.ylabel('Score')
-    plt.title('Scatter Plots for Test Scores')
+    plt.title('Mean and Standard Deviation of Test Scores')
+    plt.xticks(range(len(experiment_names)), experiment_names, rotation=45, ha='right')
     plt.legend(fontsize='small')  # Adjust font size here
-    plt.legend()
     plt.show()
+
 
 # Root folder containing the dataset folders
 results_root_folder = 'results'
