@@ -10,7 +10,6 @@
 
 ## ISSUES:
 - We need to make sure that the dataset is compatible with the estimators and scorer. For example, if the dataset is a classification dataset, then the scorer should be a classification scorer.
-- We cant give parameters to the estimators/scorers.
 - We cant automatically launch experiments with every possible combination of estimators/scorers. We need to manually specify the combinations we want to try.
 - We dont handle ConvergenceWarning from sklearn during the optimisation.
 - ...
