@@ -40,6 +40,81 @@ experiments:
       - name: sklearn.decomposition.PCA
         params:
           n_components: 2
+      - name: estimators.ot_mapping_adapter_estimator.OTMappingAdapterEstimator
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
+      - name: estimators.linear_ot_mapping_adapter_estimator.LinearOTMappingAdapterEstimator
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
+      - name: estimators.entropic_ot_mapping_adapter_estimator.EntropicOTMappingAdapterEstimator
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
+      - name: estimators.coral_adapter_estimator.CORALAdapterEstimator
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
+      - name: estimators.class_regularizer_ot_mapping_adapter_estimator.ClassRegularizerOTMappingAdapterEstimator
+      - name: sklearn.linear_model.LogisticRegression
+
+    scorer: 
+      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+
+
+  - experiment:
+    dataset:
+      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+
+    estimators:
+      - name: sklearn.decomposition.PCA
+        params:
+          n_components: 2
       - name: estimators.reweight_density_adapter_estimator.ReweightDensityAdapterEstimator
       - name: sklearn.linear_model.LogisticRegression
 
