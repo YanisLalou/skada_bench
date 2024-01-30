@@ -9,7 +9,7 @@ class NhanesLeadDataset(DomainAwareDataset):
         # xxx(okachaiev): not sure if dictionary is a good format :thinking:
         domains: Union[List[DomainDataType], Dict[str, DomainDataType], None] = None
     ):
-        super().__init__(domains)
+        super().__init__()
         loaded_dataset = fetch_domain_aware_nhanes_lead()
         self.domains_ = loaded_dataset.domains_
         self.domain_names_ = loaded_dataset.domain_names_

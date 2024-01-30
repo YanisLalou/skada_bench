@@ -3,6 +3,7 @@
 import os
 import argparse
 import pickle
+import itertools
 
 import yaml
 
@@ -41,26 +42,36 @@ def launch_experiments(args):
     # Load the experiment configurations from the YAML file
     experiment_configs = load_experiment_config(args.config)
 
-    for config in experiment_configs:
-        dataset_class = find_class(dataset_classes, config['dataset'])
-        scorer_class = find_class(scorer_classes, config['scorer'])
+
+    for experiment in experiment_configs:
+        dataset_class = find_class(dataset_classes, experiment['dataset']['name'])
+        scorer_class = find_class(scorer_classes, experiment['scorer']['name'])
+
         
         estimator_classes_to_run = []
         # Iterate over multiple estimators in the experiment
-        for estimator_path in config['estimators']:
-            estimator_class = find_class(estimator_classes, estimator_path)
+        for estimator_path in experiment['estimators']:
+            estimator_class = find_class(estimator_classes, estimator_path['name'])
             estimator_classes_to_run.append(estimator_class)
 
-        # Launch the experiment    
-        print("Launching experiment for dataset {}, estimators {} and scorer {}".format(
-            dataset_class, estimator_classes_to_run, scorer_class
-        ))
-        
+        seed_everything()
+
+        dataset_params = experiment['dataset'].get('params')
+        scorer_params = experiment['scorer'].get('params')
+        estimator_params_list = [estimator.get('params') for estimator in experiment['estimators']]
+    
         # Load the dataset
-        dataset = dataset_class()
+        if dataset_params is None:
+            dataset_params = {}
+        dataset = dataset_class(**dataset_params)
 
         # Load the estimators
-        estimator_to_run = [estimator_class() for estimator_class in estimator_classes_to_run]
+        estimator_to_run = []
+        for estimator_class, estimator_param in zip(estimator_classes_to_run, estimator_params_list):
+            if estimator_param is None:
+                estimator_param = {}
+            estimator = estimator_class(**estimator_param)
+            estimator_to_run.append(estimator)
 
         # Create the pipeline
         pipe = make_da_pipeline(
@@ -68,7 +79,15 @@ def launch_experiments(args):
         )
 
         # Load the scorer
-        scorer = scorer_class()
+        if scorer_params is None:
+            scorer_params = {}
+        scorer = scorer_class(**scorer_params)
+
+        # Launch the experiment with all combinations of parameters
+        
+        print("Launching experiment for dataset {}, estimators {} and scorer {}".format(
+            dataset, estimator_to_run, scorer, 
+        ))
 
         # Run the experiment
         X, y, sample_domain = dataset.pack_lodo()
@@ -86,9 +105,18 @@ def launch_experiments(args):
         pipe_name = '|'.join(list(pipe.named_steps.keys()))
         # Save the results
         results = {
-            'dataset': str(dataset),
-            'estimator': pipe_name,
-            'scorer': str(scorer),
+            'dataset': {
+                'name': str(dataset),
+                'params': dataset_params,
+            },
+            'estimator': {
+                'name': pipe_name,
+                'params': estimator_params_list,
+            },
+            'scorer': {
+                'name': str(scorer),
+                'params': scorer_params,
+            },
             'scores': scores,
         }
 
@@ -188,6 +216,55 @@ def find_class(class_list, class_path):
         return getattr(module, class_name)
     except (ImportError, AttributeError):
         raise ValueError(f"Class not found for path: {class_path}")
+
+
+# # Function to generate all combinations of parameters
+# def generate_experiment_combinations(experiment_config):
+#     dataset_params = experiment_config['dataset'].get('params')
+#     scorer_params = experiment_config['scorer'].get('params')
+#     estimator_params_list = [estimator.get('params') for estimator in experiment_config['estimators']]
+
+#     # Remove None values from the parameters
+#     estimator_params_list = [x for x in estimator_params_list if x is not None]
+    
+#     if dataset_params is None:
+#         dataset_params = {}
+
+#     if scorer_params is None:
+#         scorer_params = {}
+
+    
+#     # Extraire les valeurs de dataset_params
+#     dataset_values = list(itertools.product(*dataset_params.values()))
+
+#     # Extraire les valeurs de estimator_params_list
+#     estimator_values = list(itertools.product(*[params.values() for params in estimator_params_list]))
+
+#     # Extraire les valeurs de scorer_params
+#     scorer_values = list(itertools.product(*scorer_params.values()))
+
+#     param_combinations = []
+
+#     # Combinaison des dictionnaires
+#     for dataset_value in dataset_values:
+#         for estimator_value in estimator_values:
+#             for scorer_value in scorer_values:
+#                 param_combinations.append({
+#                     'dataset': dict(zip(dataset_params.keys(), dataset_value)),
+#                     'estimator': dict(zip(estimator_params_list[0].keys(), estimator_value)),
+#                     'scorer': dict(zip(scorer_params.keys(), scorer_value)),
+#                 })
+    
+#     # Create a list of dictionaries representing all combinations
+#     import pdb; pdb.set_trace()
+
+#     param_combinations = []
+#     for combo in itertools.product(dataset_params.items(), scorer_params.items(), *estimator_params_list):
+#         params_dict = dict(combo)
+#         param_combinations.append(params_dict)
+
+#     return param_combinations
+
 
 # Add this function to load the configuration from the YAML file
 def load_experiment_config(config_file):

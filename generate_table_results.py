@@ -3,9 +3,11 @@ import os
 import pickle
 from tabulate import tabulate
 import argparse
+import numpy as np
 
 parser = argparse.ArgumentParser(description='Generate LaTeX table from pickle results.')
 parser.add_argument('--display', action='store_true', help='Display the LaTeX table in the console.')
+parser.add_argument('--display_params', action='store_true', help='Display the parameters in the LaTeX table.')
 parser.add_argument('--save', metavar='output_file', help='Save the LaTeX table to a file.', default = 'result_table.tex')
 parser.add_argument('--results', help="Directory containing the datasets", type = str, default = "results")
 
@@ -17,26 +19,36 @@ def load_results(results_filename):
 
 # Function to create a LaTeX table from the loaded results
 def create_latex_table(args, results_list):
-    headers = ['Dataset', 'Estimator', 'Scorer', 'Mean Score', 'Std Score']
+    headers = ['Dataset', 'Estimator', 'Scorer', 'Mean Score', 'Std Score', 'Dataset Params', 'Estimator Params', 'Scorer Params']
 
     data = []
     for results in results_list:
         # Extract relevant information from results
-        dataset_name = results['dataset']
-        estimator_name = results['estimator']
-        scorer_name = results['scorer']
+        dataset_name = results['dataset']['name']
+        estimator_name = results['estimator']['name']
+        scorer_name = results['scorer']['name']
         scores = results['scores']['test_score']
+
+        dataset_params = results['dataset']['name']
+        estimator_params = results['estimator']['params']
+        scorer_params = results['scorer']['params']
 
         # Calculate mean and standard deviation of scores
         mean_score = round(scores.mean(), 3)
         std_score = round(scores.std(), 3)
 
-        data.append([dataset_name, estimator_name, scorer_name, mean_score, std_score])
+        data.append([dataset_name, estimator_name, scorer_name, mean_score, std_score, dataset_params, estimator_params, scorer_params])
 
     # Generate LaTeX table
     if args.display:
         # Display LaTeX table in the console
-        latex_table = tabulate(data, headers=headers, tablefmt='fancy_grid')
+        if args.display_params:
+            data_to_display = data
+        else:
+            param_elements = 3
+            data_to_display = [sublist[:-param_elements] for sublist in data]
+        
+        latex_table = tabulate(data_to_display, headers=headers, tablefmt='fancy_grid', stralign='left')
         print(latex_table)
 
     if args.save:
