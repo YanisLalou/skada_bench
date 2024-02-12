@@ -1,14 +1,21 @@
-from skada import CORALAdapter
+from sklearn.base import BaseEstimator
 
-class CORALAdapterEstimator(CORALAdapter):
-    def __init__(self):
-        super().__init__()
+from skada import CORALAdapter, Shared
+from skada import make_da_pipeline
 
-    def adapt(self, X, y=None, sample_domain=None, **kwargs):
-        return super().adapt(X, y=y, sample_domain=sample_domain, **kwargs)
+from sklearn.linear_model import LogisticRegression
+from base_bench_estimator import BaseBenchEstimator
+
+class CORALAdapterEstimator(BaseBenchEstimator):
+    parameters = {'coraladapter__reg': ['auto', 0, 1]}
+
+    def __init__(self, reg='auto', **kwargs):
+        self.reg = reg
+        self.base_estimator = CORALAdapter(reg = self.reg)
+        self.base_estimator.set_params(**kwargs)
+        
+    def get_base_estimator(self) -> BaseEstimator:
+        return self.base_estimator
     
-    def fit(self, X, y=None, sample_domain=None, **kwargs):
-        return super().fit(X, y=y, sample_domain=sample_domain, **kwargs)
-
-    def __str__(self):
-        return 'CORALAdapter'
+    def __str__(self) -> str:
+        return f'CORALAdapterEstimator'

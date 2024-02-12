@@ -1,0 +1,18 @@
+\begin{tabular}{lllrrrrrrrr}
+\hline
+ Dataset                 & Estimator                       & Scorer                  &   Mean Test Score &   Std Test Score &   Source Accuracy &   Target Accuracy &   Source F1 &   Target F1 &   Training Time &   Prediction Time \\
+\hline
+ Office31SurfPca2Dataset & CORALAdapterEstimator           & SupervisedScorer        &         0.0166667 &      0           &         0.036031  &         0.0200803 &  0.00251695 &  0.00217743 &      2.35774    &        0.00228882 \\
+ Office31SurfPca2Dataset & CORALAdapterEstimator           & PredictionEntropyScorer &        -3.07536   &      0.000806806 &         0.037694  &         0.0401606 &  0.00555809 &  0.00493344 &      2.06164    &        0.00291014 \\
+ Office31SurfPca2Dataset & LinearOTMappingAdapterEstimator & SupervisedScorer        &         0.0166667 &      0           &         0.0451774 &         0.0662651 &  0.0111469  &  0.0318449  &      2.23756    &        0.00230813 \\
+ Office31SurfPca2Dataset & LinearOTMappingAdapterEstimator & PredictionEntropyScorer &        -2.66023   &      0.0033492   &         0.036031  &         0.0220884 &  0.00251898 &  0.00209252 &      1.99521    &        0.00492215 \\
+ Office31SurfPca4Dataset & CORALAdapterEstimator           & SupervisedScorer        &         0.0544444 &      0.00136083  &         0.0432373 &         0.0441767 &  0.0126153  &  0.0114297  &      2.66842    &        0.0107961  \\
+ Office31SurfPca4Dataset & CORALAdapterEstimator           & PredictionEntropyScorer &        -2.77319   &      0.0020118   &         0.0432373 &         0.0421687 &  0.0123076  &  0.0113824  &      2.88411    &        0.00269294 \\
+ Office31SurfPca4Dataset & LinearOTMappingAdapterEstimator & SupervisedScorer        &         0.02375   &      0.00416583  &         0.0792683 &         0.0742972 &  0.040694   &  0.0466549  &      3.17577    &        0.0114288  \\
+ Office31SurfPca4Dataset & LinearOTMappingAdapterEstimator & PredictionEntropyScorer &        -2.22962   &      0.00906726  &         0.0449002 &         0.0582329 &  0.0129344  &  0.0137186  &      3.36926    &        0.00289583 \\
+ ShiftedTestDataset      & CORALAdapterEstimator           & SupervisedScorer        &         0.6875    &      0           &         0.84875   &         0.525     &  0.846398   &  0.386602   &      0.00542378 &        0.0015192  \\
+ ShiftedTestDataset      & CORALAdapterEstimator           & PredictionEntropyScorer &        -0.42551   &      0           &         0.84625   &         0.524375  &  0.84376    &  0.385323   &      0.00485516 &        0.00161719 \\
+ ShiftedTestDataset      & LinearOTMappingAdapterEstimator & SupervisedScorer        &         0.438802  &      0           &         0.801667  &         0.87375   &  0.793687   &  0.87374    &      0.00679183 &        0.0015192  \\
+ ShiftedTestDataset      & LinearOTMappingAdapterEstimator & PredictionEntropyScorer &        -0.82618   &      0           &         0.876667  &         0.805     &  0.875062   &  0.79893    &      0.00474596 &        0.00147915 \\
+\hline
+\end{tabular}
