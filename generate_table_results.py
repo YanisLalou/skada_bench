@@ -19,7 +19,10 @@ def load_results(results_filename):
 
 # Function to create a LaTeX table from the loaded results
 def create_latex_table(args, results_list):
-    headers = ['Dataset', 'Estimator', 'Scorer', 'Mean Score', 'Std Score', 'Dataset Params', 'Estimator Params', 'Scorer Params']
+    headers = ['Dataset', 'Estimator', 'Scorer', 'Mean Test Score',
+               'Std Test Score', 'Source Accuracy', 'Target Accuracy',
+                'Source F1', 'Target F1', 'Training Time', 'Prediction Time']
+
 
     data = []
     for results in results_list:
@@ -27,17 +30,21 @@ def create_latex_table(args, results_list):
         dataset_name = results['dataset']['name']
         estimator_name = results['estimator']['name']
         scorer_name = results['scorer']['name']
-        scores = results['scores']['test_score']
+        scores = results['scores']
 
-        dataset_params = results['dataset']['name']
-        estimator_params = results['estimator']['params']
-        scorer_params = results['scorer']['params']
+        mean_test_score = np.mean(scores['mean_test_score'])
+        std_test_score = np.mean(scores['std_test_score'])
+        source_accuracy = scores['source_acc']
+        target_accuracy = scores['target_acc']
+        source_f1 = scores['source_f1']
+        target_f1 = scores['target_f1']
+        training_time = scores['training_time']
+        prediction_time = scores['prediction_time']
 
-        # Calculate mean and standard deviation of scores
-        mean_score = round(scores.mean(), 3)
-        std_score = round(scores.std(), 3)
 
-        data.append([dataset_name, estimator_name, scorer_name, mean_score, std_score, dataset_params, estimator_params, scorer_params])
+        data.append([dataset_name, estimator_name, scorer_name, mean_test_score,
+                     std_test_score, source_accuracy, target_accuracy,
+                     source_f1, target_f1, training_time, prediction_time])
 
     # Generate LaTeX table
     if args.display:
@@ -45,8 +52,9 @@ def create_latex_table(args, results_list):
         if args.display_params:
             data_to_display = data
         else:
-            param_elements = 3
-            data_to_display = [sublist[:-param_elements] for sublist in data]
+            #param_elements = 3
+            #data_to_display = [sublist[:-param_elements] for sublist in data]
+            data_to_display = data
         
         latex_table = tabulate(data_to_display, headers=headers, tablefmt='fancy_grid', stralign='left')
         print(latex_table)

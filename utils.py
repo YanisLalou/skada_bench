@@ -90,32 +90,27 @@ def load_experiment_config(config_file):
 
 
 def save_results(dataset,
-                pipe,
+                estimator,
                 scorer,
-                dataset_params,
-                estimator_params_list,
-                scorer_params,
+                best_params,
                 scores):
-    pipe_name = '-'.join(list(pipe.named_steps.keys()))
     
     # Save the results
     results = {
         'dataset': {
             'name': str(dataset),
-            'params': dataset_params,
         },
         'estimator': {
-            'name': pipe_name,
-            'params': estimator_params_list,
+            'name': str(estimator),
+            'params': best_params,
         },
         'scorer': {
             'name': str(scorer),
-            'params': scorer_params,
         },
         'scores': scores,
     }
 
-    results_folder = os.path.join('results', str(dataset), pipe_name)
+    results_folder = os.path.join('results', str(dataset), str(estimator))
     print(f'Saving results to: {results_folder} \n\n')
 
     os.makedirs(results_folder, exist_ok=True)

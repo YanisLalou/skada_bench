@@ -1,22 +1,31 @@
-from skada import TransferComponentAnalysisAdapter
+# from sklearn.base import BaseEstimator
+# from skada import TransferComponentAnalysisAdapter
+# from base_bench_estimator import BaseBenchEstimator
 
-class TransferComponentAnalysisAdapterEstimator(TransferComponentAnalysisAdapter):
-    def __init__(
-        self,
-        kernel='rbf',
-        n_components=None,
-        mu=0.1
-    ):
-        super().__init__()
-        self.kernel = kernel
-        self.n_components = n_components
-        self.mu = mu
 
-    def adapt(self, X, y=None, sample_domain=None, **kwargs):
-        return super().adapt(X, y=y, sample_domain=sample_domain, **kwargs)
-    
-    def fit(self, X, y=None, sample_domain=None, **kwargs):
-        return super().fit(X, y=y, sample_domain=sample_domain, **kwargs)
+# class TransferComponentAnalysisAdapterEstimator(BaseBenchEstimator):
+#     parameters = {'transfercomponentanalysisadapter__kernel': ['rbf'],
+#                   'transfercomponentanalysisadapter__n_components': [2, 3],
+#                   'transfercomponentanalysisadapter__mu': [0.01, 0.1]}
 
-    def __str__(self):
-        return 'TransferComponentAnalysisAdapter'
+#     def __init__(
+#         self,
+#         kernel='rbf',
+#         n_components=None,
+#         mu=0.1,
+#         **kwargs
+#     ):
+#         self.kernel = kernel
+#         self.n_components = n_components
+#         self.mu = mu
+
+#         self.base_estimator = TransferComponentAnalysisAdapter(
+#             kernel=self.kernel,
+#             n_components=self.n_components,
+#             mu=self.mu
+#         )
+
+#         self.base_estimator.set_params(**kwargs)
+        
+#     def get_base_estimator(self) -> BaseEstimator:
+#         return self.base_estimator

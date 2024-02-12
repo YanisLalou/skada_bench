@@ -6,35 +6,16 @@ experiments:
     estimators:
       - name: sklearn.decomposition.PCA
         params:
-          n_components: 2
-      - name: estimators.transfer_component_analysis_adapter_estimator.TransferComponentAnalysisAdapterEstimator
-        params:
-          kernel: 'rbf'
-          n_components: 2
-          mu: 0.1
-      - name: sklearn.linear_model.LogisticRegression
-
-    scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-
-  - experiment:
-    dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
-
-    estimators:
-      - name: sklearn.decomposition.PCA
-        params:
             n_components: 2
       - name: sklearn.linear_model.LogisticRegression
 
     scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+      name: scorers.supervised_scorer.SupervisedScorer
 
 
   - experiment:
     dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+      name: datasets.office31_dataset.Office31Dataset
 
     estimators:
       - name: sklearn.decomposition.PCA
@@ -44,12 +25,12 @@ experiments:
       - name: sklearn.linear_model.LogisticRegression
 
     scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+      name: scorers.supervised_scorer.SupervisedScorer
 
 
   - experiment:
     dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+      name: datasets.office31_dataset.Office31Dataset
 
     estimators:
       - name: sklearn.decomposition.PCA
@@ -59,12 +40,12 @@ experiments:
       - name: sklearn.linear_model.LogisticRegression
 
     scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+      name: scorers.supervised_scorer.SupervisedScorer
 
 
   - experiment:
     dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+      name: datasets.office31_dataset.Office31Dataset
 
     estimators:
       - name: sklearn.decomposition.PCA
@@ -74,12 +55,12 @@ experiments:
       - name: sklearn.linear_model.LogisticRegression
 
     scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
+      name: scorers.supervised_scorer.SupervisedScorer
 
 
   - experiment:
     dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
+      name: datasets.office31_dataset.Office31Dataset
 
     estimators:
       - name: sklearn.decomposition.PCA
@@ -89,121 +70,4 @@ experiments:
       - name: sklearn.linear_model.LogisticRegression
 
     scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-
-  - experiment:
-    dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
-
-    estimators:
-      - name: sklearn.decomposition.PCA
-        params:
-          n_components: 2
-      - name: estimators.class_regularizer_ot_mapping_adapter_estimator.ClassRegularizerOTMappingAdapterEstimator
-      - name: sklearn.linear_model.LogisticRegression
-
-    scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-
-  - experiment:
-    dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
-
-    estimators:
-      - name: sklearn.decomposition.PCA
-        params:
-          n_components: 2
-      - name: estimators.reweight_density_adapter_estimator.ReweightDensityAdapterEstimator
-      - name: sklearn.linear_model.LogisticRegression
-
-    scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-
-  - experiment:
-    dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
-
-    estimators:
-      - name: sklearn.decomposition.PCA
-        params:
-          n_components: 2
-      - name: estimators.gaussian_reweight_density_adapter_estimator.GaussianReweightDensityAdapterEstimator
-      - name: sklearn.linear_model.LogisticRegression
-
-    scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-
-  - experiment:
-    dataset:
-      name: datasets.nhanes_lead_dataset.NhanesLeadDataset
-
-    estimators:
-      - name: sklearn.decomposition.PCA
-        params:
-          n_components: 2
-      - name: estimators.subspace_alignment_adapter_estimator.SubspaceAlignmentAdapter
-      - name: sklearn.linear_model.LogisticRegression
-
-    scorer: 
-      name: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-#   - dataset: datasets.nhanes_lead_dataset.NhanesLeadDataset
-#     estimators:
-#       - sklearn.decomposition.PCA
-#       - sklearn.linear_model.LogisticRegression
-#     scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-#   - dataset: datasets.office31_dataset.Office31Dataset
-#     estimators:
-#       - sklearn.decomposition.PCA
-#       - estimators.subspace_alignment_adapter_estimator.SubspaceAlignmentAdapterEstimator
-#       - sklearn.linear_model.LogisticRegression
-#     scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-  
-#   - dataset: datasets.office31_dataset.Office31Dataset
-#     estimators:
-#       - sklearn.decomposition.PCA
-#       - estimators.transfer_component_analysis_adapter_estimator.TransferComponentAnalysisAdapterEstimator
-#       - sklearn.linear_model.LogisticRegression
-#     scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-#   - dataset: datasets.office31_dataset.Office31Dataset
-#     estimators:
-#       - sklearn.decomposition.PCA
-#       - estimators.reweight_density_adapter_estimator.ReweightDensityAdapterEstimator
-#       - sklearn.linear_model.LogisticRegression
-#     scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-#   - dataset: datasets.office31_dataset.Office31Dataset
-#     estimators:
-#       - sklearn.decomposition.PCA
-#       - estimators.gaussian_reweight_density_adapter_estimator.GaussianReweightDensityAdapterEstimator
-#       - sklearn.linear_model.LogisticRegression
-#     scorer: scorers.prediction_entropy_scorer.PredictionEntropyScorer
-
-#   # - dataset: datasets.nhanes_lead_dataset.NhanesLeadDataset
-#   #   estimators:
-#   #     - sklearn.decomposition.PCA
-#   #     - sklearn.linear_model.LogisticRegression
-#   #   scorer: scorers.supervised_scorer.SupervisedScorer
-
-#   # - dataset: datasets.nhanes_lead_dataset.NhanesLeadDataset
-#   #   estimators:
-#   #     - sklearn.decomposition.PCA
-#   #     - estimators.subspace_alignment_adapter_estimator.SubspaceAlignmentAdapterEstimator
-#   #     - sklearn.linear_model.LogisticRegression
-#   #   scorer: scorers.supervised_scorer.SupervisedScorer
-
-
-# # Add more experiments here
-# # Potential issues: 
-# #   - We need to make sure that the dataset is compatible with the
-# #     estimators and scorer. For example, if the dataset is a classification dataset,
-# #     then the scorer should be a classification scorer.
-# #   - We cant give parameters to the estimators/scorers.
-# #   - We cant automatically launch experiments with every possible combination of
-# #     estimators/scorers. We need to manually specify the combinations we want to try.
+      name: scorers.supervised_scorer.SupervisedScorer
