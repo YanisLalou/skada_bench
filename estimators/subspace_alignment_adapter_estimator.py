@@ -4,7 +4,7 @@ from sklearn.base import BaseEstimator
 from base_bench_estimator import BaseBenchEstimator
 
 class SubspaceAlignmentAdapterEstimator(BaseBenchEstimator):
-    parameters = {'subspacealignmentadapter__n_components': [2, 4, 6]}
+    parameters = {'subspacealignmentadapter__n_components': [2, 4]}
 
     def __init__(
         self,

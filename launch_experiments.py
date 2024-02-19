@@ -37,6 +37,10 @@ def launch_experiments(args):
     # Load the experiment configurations from the YAML file
     #experiment_configs = load_experiment_config(args.config)
 
+    # Each error catched will be stored in this dict
+    # and printed at the end of the experiment
+    error_list = {}
+
     scorers = {}
     for scorer_class in scorer_classes:
         scorer_instance = scorer_class()
@@ -83,7 +87,14 @@ def launch_experiments(args):
                 refit=False,
             )
             
-            clf.fit(X_train, y_train, **param_da_train)
+            try:
+                clf.fit(X_train, y_train, **param_da_train)
+            except ValueError as e:
+                print(f'Error: {e}')
+                print(f'Dataset: {str(dataset)}, Estimator: {str(bench_estimator)}')
+                print('Skipping...')
+                error_list[str(dataset) + '-' + str(bench_estimator)] = e
+                continue
 
             best_params_per_scorer = get_best_params_per_scorer(clf)
             print(best_params_per_scorer)
@@ -144,6 +155,11 @@ def launch_experiments(args):
                 save_results(dataset, bench_estimator, scorer, best_params, scores)
 
     generate_bibtext(dataset_classes + estimator_classes + scorer_classes)
+
+    if error_list:
+        print('The following errors were catched during the experiment:')
+        for key, value in error_list.items():
+            print(f'{key}: {value}')
 
 
 
