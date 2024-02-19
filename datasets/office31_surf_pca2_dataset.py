@@ -28,7 +28,27 @@ class Office31SurfPca2Dataset(BaseBenchDataset):
     
     def get_classifier(self):
         return LogisticRegression()
-    
+
     def __str__(self) -> str:
         return f'Office31SurfPca2Dataset'
+    
+    bibliography = (
+        """@article{DBLP:journals/corr/KoniuszTP16,
+            author       = {Piotr Koniusz and
+                            Yusuf Tas and
+                            Fatih Porikli},
+            title        = {Domain Adaptation by Mixture of Alignments of Second- or Higher-Order
+                            Scatter Tensors},
+            journal      = \{CoRR\},
+            volume       = {abs/1611.08195},
+            year         = {2016},
+            url          = {http://arxiv.org/abs/1611.08195},
+            eprinttype    = {arXiv},
+            eprint       = {1611.08195},
+            timestamp    = {Mon, 13 Aug 2018 16:48:59 +0200},
+            biburl       = {https://dblp.org/rec/journals/corr/KoniuszTP16.bib},
+            bibsource    = {dblp computer science bibliography, https://dblp.org}
+            }
+        """
+    )
 

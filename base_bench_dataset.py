@@ -1,6 +1,7 @@
 from abc import abstractmethod
+from base_bench_class import BaseBenchClass
 
-class BaseBenchDataset():
+class BaseBenchDataset(BaseBenchClass):
     """
     Base class for all datasets
     """
@@ -19,4 +20,8 @@ class BaseBenchDataset():
 
     @abstractmethod
     def pack_test(self):
+        pass
+
+    @abstractmethod
+    def get_citation(self):
         pass

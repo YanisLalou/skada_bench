@@ -1,7 +1,5 @@
 from sklearn.base import BaseEstimator
-
 from skada import LinearOTMappingAdapter
-from skada import make_da_pipeline
 
 from base_bench_estimator import BaseBenchEstimator
 
@@ -20,3 +18,14 @@ class LinearOTMappingAdapterEstimator(BaseBenchEstimator):
     
     def __str__(self) -> str:
         return f'LinearOTMappingAdapterEstimator'
+
+    bibliography = (
+        """@misc{courty2016optimal,
+            title={Optimal Transport for Domain Adaptation}, 
+            author={Nicolas Courty and Rémi Flamary and Devis Tuia and Alain Rakotomamonjy},
+            year={2016},
+            eprint={1507.00504},
+            archivePrefix={arXiv},
+            primaryClass={cs.LG}
+        }"""
+    )

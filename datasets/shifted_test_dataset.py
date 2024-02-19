@@ -38,3 +38,5 @@ class ShiftedTestDataset(BaseBenchDataset):
     
     def __str__(self) -> str:
         return f'ShiftedTestDataset'
+
+    bibliography = None

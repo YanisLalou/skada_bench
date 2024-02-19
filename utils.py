@@ -8,6 +8,8 @@ import inspect
 import yaml
 import pickle
 
+from base_bench_class import BaseBenchClass
+
 def seed_everything(seed: int=0):
     random.seed(seed)
     os.environ['PYTHONHASHSEED'] = str(seed)
@@ -118,6 +120,21 @@ def save_results(dataset,
     results_filename = os.path.join(results_folder, str(scorer) + '.pkl')
     with open(results_filename, 'wb') as f:
         pickle.dump(results, f)
+
+
+def generate_bibtext(base_bench_classes: list[BaseBenchClass]):
+    bibtex_entries = set()  # Use a set to store unique entries
+    for base_bench_class in base_bench_classes:
+        bib = base_bench_class.bibliography
+        if bib is not None:
+            bibtex_entries.add(bib)  # Add to the set instead of the list
+    
+    # Write the BibTeX entries to a .bib file
+    with open("benchmark_citations.bib", "w") as bib_file:
+        for entry in bibtex_entries:
+            bib_file.write(entry)
+            bib_file.write("\n")
+
 
 
 # # Function to generate all combinations of parameters
